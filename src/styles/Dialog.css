@@ -14,8 +14,8 @@
     color: white;
     padding: 20px;
     width: 80%;
-    min-width: 350px;
-    max-width: 400px;
+    min-width: 450px;
+    max-width: 450px;
 }
 
 .dialog-header {
@@ -28,6 +28,13 @@
 .dialog-body {
     display: flex;
     flex-direction: column;
+}
+
+.dialog-footer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 .filter-group {
@@ -44,35 +51,9 @@
     gap: 5px;
 }
 
-.dialog-footer {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-}
-
-.dialog-footer .save-button {
-    background-color: #659e2e;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-.dialog-footer .cancel-button {
-    background-color: #933317;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-.dialog-footer .save-button:hover,
-.dialog-footer .cancel-button:hover {
-    opacity: 0.8;
-}
-
-.dialog-body input,
-.dialog-body select {
+.input-search,
+.select-filter {
+    width: 150px;
     padding: 5px;
 }
 
@@ -82,7 +63,7 @@
     background-color: #141414;
     color: white;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .element-item {
@@ -91,6 +72,6 @@
     margin-bottom: 10px;
 }
 
-.element-item input[type="checkbox"] {
+.element-input {
     margin: 3px 10px;
 }

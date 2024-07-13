@@ -1,3 +1,9 @@
+@import "./App.css";
+@import "./Button.css";
+@import "./Dialog.css";
+@import "./Row.css";
+@import "./SelectedElements.css";
+
 body {
     background-color: white;
     margin: 0;

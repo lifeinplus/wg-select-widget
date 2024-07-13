@@ -1,0 +1,46 @@
+.selected-elements-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.selected-element {
+    display: flex;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 8px 10px;
+    width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selected-element-value {
+    flex-grow: 1;
+}
+
+.selected-element-delete {
+    padding-left: 10px;
+    padding-right: 0;
+    margin-left: 10px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+    position: relative;
+}
+
+.selected-element-delete::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: gray;
+}
+
+.selected-element-delete:hover {
+    color: gray;
+}

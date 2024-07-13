@@ -8,19 +8,3 @@
     font-size: 14px;
     color: #393939;
 }
-
-.change-button {
-    background-color: #659e2e;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-.change-button {
-    margin: 0.5rem 0;
-}
-
-.change-button:hover {
-    opacity: 0.8;
-}
