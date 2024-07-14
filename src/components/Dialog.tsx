@@ -29,9 +29,7 @@ const Dialog: FC<Props> = ({ onClose }) => {
     function handleChange(element: Element) {
         if (currentSelectedElements.includes(element)) {
             handleDelete(element);
-        }
-
-        if (currentSelectedElements.length < 3) {
+        } else if (currentSelectedElements.length < 3) {
             setCurrentSelectedElements((prevState) => [...prevState, element]);
         }
     }
