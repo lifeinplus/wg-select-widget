@@ -1,32 +1,21 @@
 import { FC, useState } from "react";
-import { Element } from "../types/Element";
+import useSelectedElements from "../hooks/useSelectedElements";
 import Dialog from "./Dialog";
 import SelectedElements from "./SelectedElements";
 
 const ElementSelector: FC = () => {
-    const [selectedElements, setSelectedElements] = useState<Element[]>([]);
+    const { selectedElements } = useSelectedElements();
     const [openDialog, setOpenDialog] = useState(false);
 
     const selectedElementsCount = selectedElements.length;
     const itemsText = selectedElementsCount === 1 ? "item" : "items";
 
-    function handleCancel() {
+    function handleClose() {
         setOpenDialog(false);
-    }
-
-    function handleDelete(element: Element) {
-        setSelectedElements((prevState) =>
-            prevState.filter((item) => item.id !== element.id)
-        );
     }
 
     function handleOpen() {
         setOpenDialog(true);
-    }
-
-    function handleSave(elements: Element[]) {
-        setSelectedElements(elements);
-        setOpenDialog(false);
     }
 
     return (
@@ -35,22 +24,13 @@ const ElementSelector: FC = () => {
             <p>
                 You currently have {selectedElementsCount} selected {itemsText}.
             </p>
-            <SelectedElements
-                onDelete={handleDelete}
-                selectedElements={selectedElements}
-            />
+            <SelectedElements />
             <div className="row">
                 <button className="btn btn-success" onClick={handleOpen}>
                     Change my choice
                 </button>
             </div>
-            {openDialog && (
-                <Dialog
-                    onCancel={handleCancel}
-                    onSave={handleSave}
-                    selectedElements={selectedElements}
-                />
-            )}
+            {openDialog && <Dialog onClose={handleClose} />}
         </div>
     );
 };

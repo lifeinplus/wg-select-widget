@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/index.css";
 import App from "./App";
+import SelectedElementsProvider from "./contexts/SelectedElementsProvider";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -9,6 +10,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <App />
+        <SelectedElementsProvider>
+            <App />
+        </SelectedElementsProvider>
     </React.StrictMode>
 );

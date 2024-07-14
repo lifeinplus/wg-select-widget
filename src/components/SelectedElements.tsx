@@ -1,13 +1,26 @@
 import { FC } from "react";
-import { SelectedElementsProps } from "../types/SelectedElements";
+import useSelectedElements from "../hooks/useSelectedElements";
+import { Element } from "../types/Element";
 
-const SelectedElements: FC<SelectedElementsProps> = ({
-    onDelete,
-    selectedElements,
-}) => {
+interface Props {
+    onDelete?: (element: Element) => void;
+    selectedElements?: Element[];
+}
+
+const SelectedElements: FC<Props> = ({ onDelete, selectedElements }) => {
+    const context = useSelectedElements();
+    const elements = selectedElements ?? context.selectedElements;
+    const deleteElement = onDelete ?? handleDelete;
+
+    function handleDelete(element: Element) {
+        context.setSelectedElements((prevState) =>
+            prevState.filter((item) => item.id !== element.id)
+        );
+    }
+
     return (
         <div className="selected-elements-container">
-            {selectedElements.map((element) => (
+            {elements.map((element) => (
                 <div key={element.id} className="selected-element">
                     <span className="selected-element-value">
                         {element.value}
@@ -15,7 +28,7 @@ const SelectedElements: FC<SelectedElementsProps> = ({
                     <button
                         className="selected-element-delete"
                         onClick={() => {
-                            onDelete(element);
+                            deleteElement(element);
                         }}
                     >
                         x

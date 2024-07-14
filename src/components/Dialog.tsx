@@ -1,12 +1,18 @@
 import { ChangeEvent, FC, useState } from "react";
 
+import useSelectedElements from "../hooks/useSelectedElements";
 import ElementModel from "../models/ElementModel";
-import { DialogProps } from "../types/Dialog";
 import { Element } from "../types/Element";
 
 import SelectedElements from "./SelectedElements";
 
-const Dialog: FC<DialogProps> = ({ onCancel, onSave, selectedElements }) => {
+interface Props {
+    onClose: () => void;
+}
+
+const Dialog: FC<Props> = ({ onClose }) => {
+    const { selectedElements, setSelectedElements } = useSelectedElements();
+
     const [currentSelectedElements, setCurrentSelectedElements] =
         useState<Element[]>(selectedElements);
 
@@ -20,18 +26,14 @@ const Dialog: FC<DialogProps> = ({ onCancel, onSave, selectedElements }) => {
         return matchesSearch && id > filterValue;
     });
 
-    function chageSelectedElements(element: Element) {
-        setCurrentSelectedElements((prevState) => {
-            if (prevState.includes(element)) {
-                return prevState.filter((item) => item.id !== element.id);
-            }
+    function handleChange(element: Element) {
+        if (currentSelectedElements.includes(element)) {
+            handleDelete(element);
+        }
 
-            if (prevState.length < 3) {
-                return [...prevState, element];
-            }
-
-            return prevState;
-        });
+        if (currentSelectedElements.length < 3) {
+            setCurrentSelectedElements((prevState) => [...prevState, element]);
+        }
     }
 
     function handleDelete(element: Element) {
@@ -40,12 +42,17 @@ const Dialog: FC<DialogProps> = ({ onCancel, onSave, selectedElements }) => {
         );
     }
 
-    function handleSearch(e: ChangeEvent<HTMLInputElement>) {
-        setSearchValue(e.target.value);
-    }
-
     function handleFilter(e: ChangeEvent<HTMLSelectElement>) {
         setFilterValue(Number(e.target.value));
+    }
+
+    function handleSave() {
+        setSelectedElements(currentSelectedElements);
+        onClose();
+    }
+
+    function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+        setSearchValue(e.target.value);
     }
 
     return (
@@ -96,7 +103,7 @@ const Dialog: FC<DialogProps> = ({ onCancel, onSave, selectedElements }) => {
                                     }
                                     className="element-input"
                                     onChange={() => {
-                                        chageSelectedElements(element);
+                                        handleChange(element);
                                     }}
                                     type="checkbox"
                                 />
@@ -111,20 +118,10 @@ const Dialog: FC<DialogProps> = ({ onCancel, onSave, selectedElements }) => {
                     selectedElements={currentSelectedElements}
                 />
                 <div className="dialog-footer">
-                    <button
-                        className="btn btn-success"
-                        onClick={() => {
-                            onSave(currentSelectedElements);
-                        }}
-                    >
+                    <button className="btn btn-success" onClick={handleSave}>
                         Save
                     </button>
-                    <button
-                        className="btn btn-danger"
-                        onClick={() => {
-                            onCancel();
-                        }}
-                    >
+                    <button className="btn btn-danger" onClick={onClose}>
                         Cancel
                     </button>
                 </div>
