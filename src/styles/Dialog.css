@@ -58,20 +58,15 @@
 }
 
 .element-list {
-    max-height: 250px;
-    overflow-y: auto;
     background-color: #141414;
-    color: white;
-    padding: 10px;
     margin-bottom: 10px;
 }
 
 .element-item {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
 }
 
 .element-input {
-    margin: 3px 10px;
+    margin: 0 15px 0 20px;
 }

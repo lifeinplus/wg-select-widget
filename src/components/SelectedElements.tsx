@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo, useCallback } from "react";
 import useSelectedElements from "../hooks/useSelectedElements";
 import { Element } from "../types/Element";
 
@@ -10,13 +10,17 @@ interface Props {
 const SelectedElements: FC<Props> = ({ onDelete, selectedElements }) => {
     const context = useSelectedElements();
     const elements = selectedElements ?? context.selectedElements;
-    const deleteElement = onDelete ?? handleDelete;
 
-    function handleDelete(element: Element) {
-        context.setSelectedElements((prevState) =>
-            prevState.filter((item) => item.id !== element.id)
-        );
-    }
+    const deleteElement = useCallback(
+        (element: Element) => {
+            context.setSelectedElements((prevState) =>
+                prevState.filter((item) => item.id !== element.id)
+            );
+        },
+        [context]
+    );
+
+    const handleDelete = onDelete ?? deleteElement;
 
     return (
         <div className="selected-elements-container">
@@ -28,7 +32,7 @@ const SelectedElements: FC<Props> = ({ onDelete, selectedElements }) => {
                     <button
                         className="selected-element-delete"
                         onClick={() => {
-                            deleteElement(element);
+                            handleDelete(element);
                         }}
                     >
                         x
@@ -39,4 +43,4 @@ const SelectedElements: FC<Props> = ({ onDelete, selectedElements }) => {
     );
 };
 
-export default SelectedElements;
+export default memo(SelectedElements);
