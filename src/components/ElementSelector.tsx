@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useState } from "react";
+import { FC, memo, useState } from "react";
 import useSelectedElements from "../hooks/useSelectedElements";
 import Dialog from "./Dialog";
 import SelectedElements from "./SelectedElements";
@@ -10,13 +10,13 @@ const ElementSelector: FC = () => {
     const selectedElementsCount = selectedElements.length;
     const itemsText = selectedElementsCount === 1 ? "item" : "items";
 
-    const handleClose = useCallback(() => {
+    const handleClose = () => {
         setOpenDialog(false);
-    }, []);
+    };
 
-    const handleOpen = useCallback(() => {
+    const handleOpen = () => {
         setOpenDialog(true);
-    }, []);
+    };
 
     return (
         <div>

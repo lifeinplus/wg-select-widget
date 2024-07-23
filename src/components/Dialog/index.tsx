@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useState } from "react";
+import { FC, memo, useState } from "react";
 
 import useSelectedElements from "../../hooks/useSelectedElements";
 import { Element } from "../../types/Element";
@@ -6,11 +6,11 @@ import SelectedElements from "../SelectedElements";
 import ElementList from "./ElementList";
 import FilterGroup from "./FilterGroup";
 
-interface Props {
+interface DialogProps {
     onClose: () => void;
 }
 
-const Dialog: FC<Props> = ({ onClose }) => {
+const Dialog: FC<DialogProps> = ({ onClose }) => {
     const { selectedElements, setSelectedElements } = useSelectedElements();
 
     const [currentSelectedElements, setCurrentSelectedElements] =
@@ -19,16 +19,16 @@ const Dialog: FC<Props> = ({ onClose }) => {
     const [searchValue, setSearchValue] = useState("");
     const [filterValue, setFilterValue] = useState(0);
 
-    const handleSave = useCallback(() => {
+    const handleSave = () => {
         setSelectedElements(currentSelectedElements);
         onClose();
-    }, [currentSelectedElements, onClose, setSelectedElements]);
+    };
 
-    const handleDelete = useCallback((element: Element) => {
+    const handleDelete = (element: Element) => {
         setCurrentSelectedElements((prevState) =>
             prevState.filter((item) => item.id !== element.id)
         );
-    }, []);
+    };
 
     return (
         <div className="dialog">

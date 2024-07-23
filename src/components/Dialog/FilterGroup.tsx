@@ -1,38 +1,25 @@
-import {
-    ChangeEvent,
-    Dispatch,
-    FC,
-    memo,
-    SetStateAction,
-    useCallback,
-} from "react";
+import { ChangeEvent, Dispatch, FC, memo, SetStateAction } from "react";
 
-interface Props {
+interface FilterGroupProps {
     filterValue: number;
     setFilterValue: Dispatch<SetStateAction<number>>;
     searchValue: string;
     setSearchValue: Dispatch<SetStateAction<string>>;
 }
 
-const FilterGroup: FC<Props> = ({
+const FilterGroup: FC<FilterGroupProps> = ({
     filterValue,
     setFilterValue,
     searchValue,
     setSearchValue,
 }) => {
-    const handleSearch = useCallback(
-        (e: ChangeEvent<HTMLInputElement>) => {
-            setSearchValue(e.target.value);
-        },
-        [setSearchValue]
-    );
+    const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.target.value);
+    };
 
-    const handleFilter = useCallback(
-        (e: ChangeEvent<HTMLSelectElement>) => {
-            setFilterValue(Number(e.target.value));
-        },
-        [setFilterValue]
-    );
+    const handleFilter = (e: ChangeEvent<HTMLSelectElement>) => {
+        setFilterValue(Number(e.target.value));
+    };
 
     return (
         <div className="filter-group">

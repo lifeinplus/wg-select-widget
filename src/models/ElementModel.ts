@@ -1,10 +1,10 @@
 import { Element } from "../types/Element";
 
-interface Props {
+interface ElementModelProps {
     elements: Element[];
 }
 
-const ElementModel: Props = {
+const ElementModel: ElementModelProps = {
     elements: Array.from({ length: 300 }, (_, index) => ({
         id: index + 1,
         value: `Element ${index + 1}`,

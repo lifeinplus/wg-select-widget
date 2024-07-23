@@ -9,14 +9,14 @@ import {
 
 import { Element } from "../types/Element";
 
-interface Props {
+interface SelectedElementsContextProps {
     selectedElements: Element[];
     setSelectedElements: Dispatch<SetStateAction<Element[]>>;
 }
 
-export const SelectedElementsContext = createContext<Props | undefined>(
-    undefined
-);
+export const SelectedElementsContext = createContext<
+    SelectedElementsContextProps | undefined
+>(undefined);
 
 const SelectedElementsProvider: FC<PropsWithChildren> = ({ children }) => {
     const [selectedElements, setSelectedElements] = useState<Element[]>([]);

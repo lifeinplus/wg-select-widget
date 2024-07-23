@@ -1,24 +1,17 @@
-import {
-    Dispatch,
-    FC,
-    memo,
-    SetStateAction,
-    useCallback,
-    useMemo,
-} from "react";
+import { Dispatch, FC, memo, SetStateAction, useMemo } from "react";
 import { FixedSizeList } from "react-window";
 
 import ElementModel from "../../models/ElementModel";
 import { Element } from "../../types/Element";
 
-interface Props {
+interface ElementListProps {
     currentSelectedElements: Element[];
     setCurrentSelectedElements: Dispatch<SetStateAction<Element[]>>;
     filterValue: number;
     searchValue: string;
 }
 
-const ElementList: FC<Props> = ({
+const ElementList: FC<ElementListProps> = ({
     currentSelectedElements,
     setCurrentSelectedElements,
     filterValue,
@@ -33,21 +26,15 @@ const ElementList: FC<Props> = ({
         });
     }, [searchValue, filterValue]);
 
-    const handleChange = useCallback(
-        (element: Element) => {
-            if (currentSelectedElements.includes(element)) {
-                setCurrentSelectedElements((prevState) =>
-                    prevState.filter((item) => item.id !== element.id)
-                );
-            } else if (currentSelectedElements.length < 3) {
-                setCurrentSelectedElements((prevState) => [
-                    ...prevState,
-                    element,
-                ]);
-            }
-        },
-        [currentSelectedElements, setCurrentSelectedElements]
-    );
+    const handleChange = (element: Element) => {
+        if (currentSelectedElements.includes(element)) {
+            setCurrentSelectedElements((prevState) =>
+                prevState.filter((item) => item.id !== element.id)
+            );
+        } else if (currentSelectedElements.length < 3) {
+            setCurrentSelectedElements((prevState) => [...prevState, element]);
+        }
+    };
 
     return (
         <FixedSizeList
